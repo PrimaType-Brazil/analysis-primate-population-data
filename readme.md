@@ -1,3 +1,46 @@
+# Setup
+
+## Instalando o projeto
+
+1. Clonar o repositório;
+2. Entrar no diretório do projeto;
+3. Ter python3 e pip instalados.
+
+## Rodando o projeto
+
+É necessário ter o `primates_dataset.csv` no diretório `storage/data`.
+
+Se estiver em Linux, rode:
+
+```bash
+sudo chmod 775 ./run.sh
+```
+
+para dar permissões ao shell que roda o projeto automaticamente.
+Rode o shell com:
+
+```bash
+./run.sh
+```
+
+Esse shell existe pra não precisar rodar `python3 main.py` toda vez, facilitando, mas se for da preferência do usuário, não é necessário usar esse shell.
+Ele inclusive instala as dependências automaticamente.
+
+```bash
+python3 main.py
+```
+
+## Assegurando-se de ter todas as dependências necessárias
+
+O script shell `run.sh` instala as dependências pra você, então, use-o sempre que possível.
+Caso queira instalar as dependências você mesmo, use:
+
+```bash
+pip install -r requirements.txt
+```
+
+O arquivo `requirements.txt` lista as dependências do projeto em um único arquivo pra não ser necessário olhar arquivo por arquivo, ou baixar dependência por dependência.
+
 # Análise de Dados Populacionais de Primatas
 
 ## Descrição
