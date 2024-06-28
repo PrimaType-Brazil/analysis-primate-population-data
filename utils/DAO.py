@@ -1,10 +1,11 @@
 import pandas as pd
 
 from utils.Log import Log
+from utils.Query import Query
 
-class PrimateDAO:
+class DAO:
     """
-    PrimateDAO is a Data Access Object class that handles loading and
+    DAO (Data Access Object) is a class that handles loading and
     basic operations on a CSV file containing primate data.
 
     Attributes
@@ -20,7 +21,7 @@ class PrimateDAO:
 
     def __init__(self, filename: str) -> None:
         """
-        Initializes the PrimateDAO with the given filename and attempts
+        Initializes the DAO with the given filename and attempts
         to load the data from the file.
 
         Parameters
@@ -46,3 +47,6 @@ class PrimateDAO:
 
         except Exception as err:
             Log.error(f"An error occurred: {err}")
+
+    def query(self):
+        return Query(self.data)
