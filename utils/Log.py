@@ -3,19 +3,19 @@ import logging
 # static
 class Log:
     """
-    Log is a class for managing logging in the application.
+    Log é uma classe para gerenciar logs na aplicação.
 
-    This class provides methods to set up debug, info, and error loggers
-    and log messages to a specified log file.
+    Esta classe fornece métodos para configurar loggers de debug, info e erro,
+    e registrar mensagens em um arquivo de log especificado.
 
-    Methods
+    Métodos
     -------
     debug(message: str) -> None
-        Logs a debug message using the debug logger.
+        Registra uma mensagem de debug usando o logger de debug.
     info(message: str) -> None
-        Logs an informational message using the info logger.
+        Registra uma mensagem informativa usando o logger de info.
     error(message: str) -> None
-        Logs an error message using the error logger.
+        Registra uma mensagem de erro usando o logger de erro.
     """
 
     _debug_logger: logging.Logger | None
@@ -25,14 +25,14 @@ class Log:
     @classmethod
     def _create_handler(cls) -> logging.FileHandler:
         """
-        Creates and returns a file handler with a specific formatter.
+        Cria e retorna um manipulador de arquivo com um formatador específico.
 
-        The handler writes log messages to the 'storage/logs/primate.log' file.
+        O manipulador escreve mensagens de log no arquivo 'storage/logs/primate.log'.
 
-        Returns
+        Retorna
         -------
         logging.FileHandler
-            The file handler with the specified formatter.
+            O manipulador de arquivo com o formatador especificado.
         """
         formatter: logging.Formatter = logging.Formatter('%(asctime)s %(name)s "%(message)s"')
         handler: logging.FileHandler = logging.FileHandler("storage/logs/primate.log")
@@ -43,10 +43,10 @@ class Log:
     @classmethod
     def _load_debug(cls) -> None:
         """
-        Sets up the debug logger if it hasn't been set up already.
+        Configura o logger de debug se ainda não foi configurado.
 
-        This method configures the logger with a file handler and a formatter.
-        The log messages are stored in the 'storage/logs/primate.log' file.
+        Este método configura o logger com um manipulador de arquivo e um formatador.
+        As mensagens de log são armazenadas no arquivo 'storage/logs/primate.log'.
         """
         if not hasattr(cls, "_debug_logger"):
             debug_logger = logging.getLogger("DEBUG")
@@ -58,10 +58,10 @@ class Log:
     @classmethod
     def _load_info(cls) -> None:
         """
-        Sets up the info logger if it hasn't been set up already.
+        Configura o logger de info se ainda não foi configurado.
 
-        This method configures the logger with a file handler and a formatter.
-        The log messages are stored in the 'storage/logs/primate.log' file.
+        Este método configura o logger com um manipulador de arquivo e um formatador.
+        As mensagens de log são armazenadas no arquivo 'storage/logs/primate.log'.
         """
         if not hasattr(cls, "_info_logger"):
             info_logger = logging.getLogger("INFO")
@@ -73,10 +73,10 @@ class Log:
     @classmethod
     def _load_error(cls) -> None:
         """
-        Sets up the error logger if it hasn't been set up already.
+        Configura o logger de erro se ainda não foi configurado.
 
-        This method configures the logger with a file handler and a formatter.
-        The log messages are stored in the 'storage/logs/primate.log' file.
+        Este método configura o logger com um manipulador de arquivo e um formatador.
+        As mensagens de log são armazenadas no arquivo 'storage/logs/primate.log'.
         """
         if not hasattr(cls, "_error_logger"):
             error_logger = logging.getLogger("ERROR")
@@ -88,14 +88,14 @@ class Log:
     @classmethod
     def debug(cls, message: str) -> None:
         """
-        Logs a debug message using the debug logger.
+        Registra uma mensagem de debug usando o logger de debug.
 
-        This method ensures that the debug logger is set up before logging the message.
+        Este método garante que o logger de debug esteja configurado antes de registrar a mensagem.
 
-        Parameters
+        Parâmetros
         ----------
         message : str
-            The debug message to be logged.
+            A mensagem de debug a ser registrada.
         """
         cls._load_debug()
         cls._debug_logger.debug(message)
@@ -103,14 +103,14 @@ class Log:
     @classmethod
     def info(cls, message: str) -> None:
         """
-        Logs an informational message using the info logger.
+        Registra uma mensagem informativa usando o logger de info.
 
-        This method ensures that the info logger is set up before logging the message.
+        Este método garante que o logger de info esteja configurado antes de registrar a mensagem.
 
-        Parameters
+        Parâmetros
         ----------
         message : str
-            The informational message to be logged.
+            A mensagem informativa a ser registrada.
         """
         cls._load_info()
         cls._info_logger.info(message)
@@ -118,14 +118,14 @@ class Log:
     @classmethod
     def error(cls, message: str) -> None:
         """
-        Logs an error message using the error logger.
+        Registra uma mensagem de erro usando o logger de erro.
 
-        This method ensures that the error logger is set up before logging the message.
+        Este método garante que o logger de erro esteja configurado antes de registrar a mensagem.
 
-        Parameters
+        Parâmetros
         ----------
         message : str
-            The error message to be logged.
+            A mensagem de erro a ser registrada.
         """
         cls._load_error()
         cls._error_logger.error(message)

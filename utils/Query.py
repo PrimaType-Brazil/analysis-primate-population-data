@@ -4,18 +4,18 @@ from utils.Log import Log
 
 class Query:
     """
-    Class to perform fluent queries on a pandas DataFrame.
+    Classe para realizar consultas fluentes em um DataFrame do pandas.
 
-    Methods
+    Métodos
     -------
     where(column: str, operator: str, value: any) -> 'Query'
-        Applies a filter to the query.
+        Aplica um filtro à consulta.
     order_by(column: str, ascending: bool = True) -> 'Query'
-        Sorts the query results.
+        Ordena os resultados da consulta.
     limit(how_much: int) -> 'Query'
-        Limits the number of results.
+        Limita o número de resultados.
     get() -> pd.DataFrame
-        Returns the resulting DataFrame from the query.
+        Retorna o DataFrame resultante da consulta.
     """
 
     _data: pd.DataFrame
@@ -27,26 +27,26 @@ class Query:
 
     def where(self, column: str, operator: str, value: any) -> 'Query':
         """
-        Applies a filter to the query.
+        Aplica um filtro à consulta.
 
-        Parameters
+        Parâmetros
         ----------
         column : str
-            The column to be filtered.
+            A coluna a ser filtrada.
         operator : str
-            The comparison operator ('==', '!=', '>', '>=', '<', '<=').
+            O operador de comparação ('==', '!=', '>', '>=', '<', '<=').
         value : any
-            The value to be compared.
+            O valor a ser comparado.
 
-        Returns
+        Retorna
         -------
         Query
-            The current instance of the class to allow method chaining.
+            A instância atual da classe para permitir o encadeamento de métodos.
 
-        Raises
+        Lança
         ------
         ValueError
-            If the operator is not one of the following: '==', '!=', '>', '>=', '<', '<='.
+            Se o operador não for um dos seguintes: '==', '!=', '>', '>=', '<', '<='.
         """
 
         match operator:
@@ -63,26 +63,26 @@ class Query:
             case "<=":
                 self._query = self._query[self._query[column] <= value]
             case _:
-                error_message: str = f"An operator was used for where(), which is not compatible: {operator}. should be any of these: ==, !=, >, >=, <, <="
+                error_message: str = f"Um operador foi usado no where(), que não é compatível: {operator}. Deve ser um destes: ==, !=, >, >=, <, <="
                 Log.error(error_message)
                 raise ValueError(error_message)
         return self
 
     def order_by(self, column: str, ascending: bool = False):
         """
-        Sorts the query results.
+        Ordena os resultados da consulta.
 
-        Parameters
+        Parâmetros
         ----------
         column : str
-            The column to sort by.
-        ascending : bool, optional
-            If True, sort in ascending order. If False, descending. Default is True.
+            A coluna pela qual ordenar.
+        ascending : bool, opcional
+            Se True, ordena em ordem ascendente. Se False, descendente. O padrão é True.
 
-        Returns
+        Retorna
         -------
         Query
-            The current instance of the class to allow method chaining.
+            A instância atual da classe para permitir o encadeamento de métodos.
         """
 
         self._query = self._query.sort_values(by = column, ascending = ascending)
@@ -90,17 +90,17 @@ class Query:
 
     def limit(self, how_much: int):
         """
-        Limits the number of results in the query.
+        Limita o número de resultados na consulta.
 
-        Parameters
+        Parâmetros
         ----------
         how_much : int
-            The maximum number of results to return.
+            O número máximo de resultados a serem retornados.
 
-        Returns
+        Retorna
         -------
         Query
-            The current instance of the class to allow method chaining.
+            A instância atual da classe para permitir o encadeamento de métodos.
         """
 
         self._query = self._query.head(how_much)
@@ -108,12 +108,12 @@ class Query:
 
     def get(self) -> pd.DataFrame:
         """
-        Returns the resulting DataFrame from the query.
+        Retorna o DataFrame resultante da consulta.
 
-        Returns
+        Retorna
         -------
         pd.DataFrame
-            The filtered and modified DataFrame.
+            O DataFrame filtrado e modificado.
         """
 
         return self._query

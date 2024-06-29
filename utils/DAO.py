@@ -5,15 +5,15 @@ from utils.Query import Query
 
 class DAO:
     """
-    DAO (Data Access Object) is a class that handles loading and
-    basic operations on a CSV file containing primate data.
+    DAO (Data Access Object) é uma classe que lida com o carregamento e
+    operações básicas em um arquivo CSV contendo dados de primatas.
 
-    Attributes
+    Atributos
     ----------
     filename : str
-        The name/path of the CSV file to be loaded.
-    data : pd.DataFrame or None
-        A DataFrame containing the loaded data, or None if the data is not loaded.
+        O nome/caminho do arquivo CSV a ser carregado.
+    data : pd.DataFrame ou None
+        Um DataFrame contendo os dados carregados, ou None se os dados não foram carregados.
     """
 
     filename: str
@@ -21,32 +21,32 @@ class DAO:
 
     def __init__(self, filename: str) -> None:
         """
-        Initializes the DAO with the given filename and attempts
-        to load the data from the file.
+        Inicializa o DAO com o nome do arquivo fornecido e tenta
+        carregar os dados do arquivo.
 
-        Parameters
+        Parâmetros
         ----------
         filename : str
-            The name/path of the CSV file to be loaded.
+            O nome/caminho do arquivo CSV a ser carregado.
         """
         self.filename = filename
         self.data = None
 
         try:
             self.data = pd.read_csv(self.filename)
-            Log.debug(f"Data loaded successfully from {self.filename}")
+            Log.debug(f"Dados carregados com sucesso de {self.filename}")
 
         except FileNotFoundError:
-            Log.error(f"File {self.filename} not found.")
+            Log.error(f"Arquivo {self.filename} não encontrado.")
 
         except pd.errors.EmptyDataError:
-            Log.error(f"File {self.filename} is empty.")
+            Log.error(f"Arquivo {self.filename} está vazio.")
 
         except pd.errors.ParserError:
-            Log.error(f"File {self.filename} does not appear to be a valid CSV.")
+            Log.error(f"Arquivo {self.filename} não parece ser um CSV válido.")
 
         except Exception as err:
-            Log.error(f"An error occurred: {err}")
+            Log.error(f"Ocorreu um erro: {err}")
 
     def query(self):
         return Query(self.data)
