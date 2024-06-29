@@ -4,7 +4,12 @@
 
 1. Clonar o repositório;
 2. Entrar no diretório do projeto;
-3. Ter python3 e pip instalados.
+3. Ter Python 3.10 (ou superior) e pip instalados;
+4. (OPCIONAL): Ter Poetry instalado para gerenciamento das dependências.
+
+### Instalação do Poetry
+
+Caso não tenha o Poetry instalado, siga as instruções em [Poetry](https://python-poetry.org/docs/#installation).
 
 ## Rodando o projeto
 
@@ -23,8 +28,9 @@ Rode o shell com:
 ./run.sh
 ```
 
-Esse shell existe pra não precisar rodar `python3 main.py` toda vez, facilitando, mas se for da preferência do usuário, não é necessário usar esse shell.
-Ele inclusive instala as dependências automaticamente.
+Esse shell instala automaticamente as dependências do projeto de acordo com a sua preferência: se você quiser usar pip (package manager padrão do python) ou Poetry (package manager mais avançado).
+Ele salva suas preferências criando um arquivo .config.
+Se você prefere não usar um package manager, ou souber exatamente o que está fazendo, pode rodar o projeto com:
 
 ```bash
 python3 main.py
@@ -109,11 +115,11 @@ Dos dados reunidos acima, é possível inferir sobre cada um deles seus tipos pr
 
 ##### II.2.1 - genetic_variation
 
-A variável genetic_variation implica variação genética da espécie, mas variação à oque? De acordo com <a href="https://humanorigins.si.edu/evidence/genetics#:~:text=The%20DNA%20difference%20with%20gorillas,Asian%20great%20ape%2C%20the%20orangutan.">algumas informações</a>, os valores batem com a variação genética do gene da espécie referente o gene humano. Mas nas mesmas fontes, outros valores são providenciados, e discutir a veracidade do fornecido pelo CSV é plausível.
+A variável genetic_variation implica variação genética da espécie, mas variação à oque? De acordo com [algumas informações](https://humanorigins.si.edu/evidence/genetics#:~:text=The%20DNA%20difference%20with%20gorillas,Asian%20great%20ape%2C%20the%20orangutan.), os valores batem com a variação genética do gene da espécie referente o gene humano. Mas nas mesmas fontes, outros valores são providenciados, e discutir a veracidade do fornecido pelo CSV é plausível.
 
 ##### II.2.2 - health_status
 
-Podemos inferir que esses valores se referem à classificação determinada pela <a href="https://www.iucn.org/">União Internacional pela Conservação da Natureza</a>. Na amostragem dos dados II.1, os dados referentes à variável "health_status" já estão em ordem (de cima pra baixo) pra mais próxima da extinção.
+Podemos inferir que esses valores se referem à classificação determinada pela [União Internacional pela Conservação da Natureza](https://www.iucn.org/)União Internacional pela Conservação da Natureza. Na amostragem dos dados II.1, os dados referentes à variável "health_status" já estão em ordem (de cima pra baixo) pra mais próxima da extinção.
 
 ##### II.2.3 - latitude & longitude
 

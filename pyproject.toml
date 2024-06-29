@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "primatype"
+version = "0.1.0"
+description = "Primate Population Data Analysis"
+authors = ["Danilo M <danilosm215@gmail.com>"]
+readme = "readme.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
