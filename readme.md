@@ -13,7 +13,7 @@ Caso não tenha o Poetry instalado, siga as instruções em [Poetry](https://pyt
 
 ## Rodando o projeto
 
-É necessário ter o `primates_dataset.csv` no diretório `storage/data`.
+É necessário ter o `primates_dataset.csv` no diretório `storage/data/raw`.
 
 Se estiver em Linux, rode:
 

@@ -129,3 +129,22 @@ class Log:
         """
         cls._load_error()
         cls._error_logger.error(message)
+
+    def track(func: callable) -> callable:
+        """
+        Decorador que faz o tracking (rastreamento) de chamadas de métodos, registrando a entrada
+        e a saída do método no log.
+
+        Retorna
+        -------
+        callable
+            Função decorada.
+        """
+        def wrapper(*args: any, **kwargs: any):
+            Log.debug(f"Chamado {func.__name__}")
+
+            result: any = func(*args, **kwargs)
+
+            Log.debug(f"Finalizado {func.__name__}")
+            return result
+        return wrapper
