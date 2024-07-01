@@ -1,6 +1,5 @@
 import logging
 
-# static
 class Log:
     """
     Log é uma classe para gerenciar logs na aplicação.

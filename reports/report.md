@@ -2,6 +2,8 @@
 
 # Relatório do Projeto
 
+O intuito desse projeto, como parte do Sprint 1 da equipe PrimaType, é, principalmente, aprender as várias etapas fundamentais da ciência de dados, envolvendo coleta, limpeza/tratamento, e visualização dos dados. O objetivo é realizar uma análise detalhada dos dados populacionais de diferentes espécies de primatas utilizando Python e bibliotecas essenciais para o ramo.
+
 No processo de análise de dados, precisamos seguir alguns passos pra assegurar a precisão e concisão da análise. Dentre esses passos, destaca-se o EDA (Exploratory Data Analysis, ou Análise Exploratória de Dados). O objetivo do EDA é compreender melhor os dados, suas características, e garantir sua integridade antes de aplicar técnicas avançadas de análise ou modelagem.
 
 ## I. - Coleta de Dados
@@ -68,11 +70,11 @@ Dos dados reunidos acima, é possível inferir sobre cada um deles seus tipos pr
 
 #### II.2.1 - genetic_variation
 
-A variável genetic_variation implica variação genética da espécie, mas variação à oque? De acordo com [algumas informações](https://humanorigins.si.edu/evidence/genetics#:~:text=The%20DNA%20difference%20with%20gorillas,Asian%20great%20ape%2C%20the%20orangutan.), os valores batem com a variação genética do gene da espécie referente o gene humano. Mas nas mesmas fontes, outros valores são providenciados, e discutir a veracidade do fornecido pelo CSV é plausível.
+A variável genetic_variation implica variação genética da espécie, mas variação à oque? De acordo com [algumas informações](https://humanorigins.si.edu/evidence/genetics#:~:text=The%20DNA%20difference%20with%20gorillas,Asian%20great%20ape%2C%20the%20orangutan.), os valores batem com a variação genética do gene da espécie referente o gene humano. Mas nas mesmas fontes, outros valores são providenciados, e discutir a veracidade do fornecido pelo CSV é plausível.[^1]
 
 #### II.2.2 - health_status
 
-Podemos inferir que esses valores se referem à classificação determinada pela [União Internacional pela Conservação da Natureza](https://www.iucn.org/)União Internacional pela Conservação da Natureza. Na amostragem dos dados II.1, os dados referentes à variável "health_status" já estão em ordem (de cima pra baixo) pra mais próxima da extinção.
+Podemos inferir que esses valores se referem à classificação determinada pela [União Internacional pela Conservação da Natureza](https://www.iucn.org/)União Internacional pela Conservação da Natureza. Na amostragem dos dados II.1, os dados referentes à variável "health_status" já estão em ordem (de cima pra baixo) pra mais próxima da extinção.[^2]
 
 #### II.2.3 - latitude & longitude
 
@@ -81,6 +83,10 @@ Em primeira instância uma pessoa poderia se perguntar aonde se referem as coord
 ### II.3 - Transformação das variáveis
 
 É uma etapa importante da análise pós-coleta de dados que verifiquemos quais variáveis possuem mais correlação com o que desejamos. Para o escopo do projeto atual, percebe-se que as variáveis estão satisfatórias com sua exibição, talvez por exceção de "genetic_variation", que, ao invés de um float entre 0.00 à 0.10, poderia ser uma porcentagem. Depende de cada cientista. Além disso, a separação de dois campos "latitude" e "longitude" pode desagradar quem preferisse um único campo "coordinates".
+
+### II.4 - Variáveis mais Importantes
+
+Em alguns projetos, é necessária uma investigação sobre quais das variáveis possuem mais correlação com o objetivo. Como o intuito desse projeto é analisar a variação da população dessas espécies, identificar e visualizar as tendências populacionais ao longo do tempo, fica evidente que as nossas variáveis que receberão mais destaque serão "population" e "year".
 
 ## III. - Limpeza dos Dados
 
@@ -91,7 +97,7 @@ Uma das etapas mais importantes da Análise Exploratória de Dados é a limpeza 
 Começaremos a limpeza dos dados identificando e tratando valores ausentes. Podemos fazer isso removendo linhas ou colunas com muitos valores ausentes, ou adicionando nossos próprios valores como indicação de
 valores nulos (adicionando 0, por exemplo) ou informações previstas de acordo com os outros dados.
 
-Para fazer isso, foi criado a classe **DataConsistencyValidator** e seu método **verify_all_data_entries**. Esse é responsável por percorrer, linha a linha, os dados fornecidos, e ao final, indica quais linhas tiveram valores vazios, e em qual coluna exatamente. Graças à ele, foi possível tirar essa informação:
+Para fazer isso, foi criado a classe **DataConsistencyValidator** e seu método **verify_all_empty_entries**. Esse é responsável por percorrer, linha a linha, os dados fornecidos, e ao final, indica quais linhas tiveram valores vazios, e em qual coluna exatamente. Graças à ele, foi possível tirar essa informação:
 
 -   Vazio encontrado na linha 4, coluna 'habitat_region'
 -   Vazio encontrado na linha 13, coluna 'population'
@@ -132,4 +138,42 @@ Fazendo uso da nossa **Query** para capturar todas as linhas referentes à orang
 
 Em futuras visualizações, como gráficos, haverá a transparência de indicar o preenchimento artificial desses dados, como neste mesmo documento.
 
-<!-- ### III.1 - Correção de Inconsistências -->
+### III.2 - Correção de Inconsistências
+
+Antes de termos falado sobre os valores vazios na coluna "population", houve valores vazios na coluna "habitat_region" que precisaram ser preenchidos. É importante que certos valores qualitativos ou quantitativos arbitrários permaneçam consistentes entre si. As colunas "habitat_region", "diet", "social_behavior", "genetic_variation", "health_status", "latitude" e "longitude" não fazem sentido mudarem no contexto do projeto. Pra esses valores mudarem, muitos anos precisam se passar, muito mais do que a faixa 2006-2020 que temos no nosso banco atual.
+
+A coluna mais provável de se mudar nessa pequena faixa de tempo seria "health_status", já que isso é um dado qualitativo determinado pelo órgão internacional falado anteriormente. No entanto, pro nosso projeto, não houve quaisquer mudanças. No mesmo ponto em que isso foi resolvido também foi falado sobre confirmar que as coordenadas (latitude e longitude) se adequam com a fornecida pela "habitat_region".
+
+Pra cada espécie, os valores que são, sim, esperados terem mudanças hora ou outra, são os das colunas "population", "year", e "avg_lifespan".
+
+Para confirmar tudo isso, foi-se criado o método **verify_column_consistency** na classe **DataConsistencyValidator**. Esse método verifica, dado uma base de dados e as devidas colunas, se todos os dados se encaixam com o primeiro valor fornecido pra cada espécie.
+
+Utilizando esse método, foi possível inferir que todos os dados estão consistentes após o preenchimento dos valores ausentes, possibilitando que sigamos em frente no tratamento.
+
+### III.3 - Remoção de Outliers
+
+"Outliers" são valores que se desviam significativamente dos outros dados em um conjunto. Podem ser causados por erros de medição, entrada incorreta de dados, ou até mesmo valores legítimos, representando variabilidade real no conjunto de dados em questão. Eles podem distorcer estatísticas descritivas como média e desvio padrão, afetar modelos estatísticos de Machine Learning e influenciar negativamente na visualização de dados. Em resumo, são dados anômalos que podem distorcer a análise.
+
+A identificação e remoção dos outliers é uma etapa importante na análise de dados, mas deve ser realizada com cuidado para garantir que os resultados finais sejam precisos. Possíveis formas de identificar outliers são por meio de métodos estatísticos e pela visualização direta dos dados.
+
+#### III.2.1 - Métodos Estatístico Z-Score
+
+O Z-Score é uma pontuação que mede quantos desvios padrão um valor está distante da média. Valores de Z-Score acima de 3 ou abaixo de -3 (ou, simplesmente, o valor absoluto do Z-Score acima de 3) são geralmente considerados outliers. Pontuações positivas indicam que o valor está acima da média, enquanto que a pontuação negativa indica que está abaixo dessa média. Serve pra determinar a volatilidade dos dados do conjunto.
+
+O desvio padrão é essencialmente um reflexo da quantidade de variabilidade dentro desse conjunto. Segundo estudos decorrentes desde a década de 1960[^3], 99,7% dos valores prestativos contam dentro desse intervalo de -3 a 3. No entanto, ele é tão preciso quanto os dados inseridos nele, logo, não é imune à dados falsos ou inseridos errôneamente. É por isso que a etapa de remoção de anomalias é uma das últimas na limpeza.[^4]
+
+1. Calculamos a média dos valores da coluna de interesse.
+2. Da mesma forma, calculamos o desvio padrão.
+3. Calculamos o Z-Score pra cada valor na coluna subtraindo o valor pela média e dividindo pelo desvio padrão.
+4. Identificar todos os valores que, absolutos, são maiores que 3.
+
+Pra atingir isso, foi-se criado o método **z_score** na classe **Outliers**. Essa classe servirá pra comportar os métodos de rastreamento de anomalias, sendo o método z_score, a métrica apresentada agora.
+
+Com esse método, foi possível notar que nossos dados populacionais não estão voláteis.
+
+# Bibliografia
+
+[^1]: GENETIC Evidence. The Smithsonian National Museum of Natural History. Disponível em: https://humanorigins.si.edu/evidence/genetics . Acesso em: 29 de jun. de 2024.
+[^2]: IUCN, IUCN. Página inicial. Disponível em: https://www.iucn.org/ . Acesso em: 29 de jun. de 2024.
+[^3]: Z-SCORE: saiba o que é e como funciona. Mais Retorno, 2022. Disponível em: https://maisretorno.com/portal/termos/z/z-score . Acesso em: 29 de jun. de 2024.
+[^4]: Z-SCORE. Oracle Help Center. Disponível em: https://docs.oracle.com/cloud/help/pt_BR/pbcs_common/PFUSU/insights_metrics_Z-Score.htm#PFUSU-GUID-640CEBD1-33A2-4B3C-BD81-EB283F82D879 . Acesso em: 30 de jun. de 2024.
