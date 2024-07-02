@@ -47,6 +47,18 @@ pip install -r requirements.txt
 
 O arquivo `requirements.txt` lista as dependências do projeto em um único arquivo pra não ser necessário olhar arquivo por arquivo, ou baixar dependência por dependência.
 
+# Arquitetura de pastas do projeto
+
+.
+├── reports
+├── scripts
+├── storage
+│ ├── data
+│ │ ├── processed
+│ │ └── raw
+│ └── logs
+└── utils
+
 # Análise de Dados Populacionais de Primatas
 
 Segue abaixo o edital do desafio.
