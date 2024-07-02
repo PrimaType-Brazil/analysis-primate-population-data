@@ -6,11 +6,13 @@ O intuito desse projeto, como parte do Sprint 1 da equipe PrimaType, é, princip
 
 No processo de análise de dados, precisamos seguir alguns passos pra assegurar a precisão e concisão da análise. Dentre esses passos, destaca-se o EDA (Exploratory Data Analysis, ou Análise Exploratória de Dados). O objetivo do EDA é compreender melhor os dados, suas características, e garantir sua integridade antes de aplicar técnicas avançadas de análise ou modelagem.
 
+Essa etapa, que envolve limpeza, organização, e transformação dos dados, é a etapa seguinte da coleta dos dados que serão extraídas as informações úteis pra tomadas de decisão. Fora Python, outras ferramentas podem ser úteis como Excel e técnicas mais avançadas como uso de redes neurais (inteligência artificial). A ideia é identificar padrões e tendências à fim de solucionar algum problema específico.[^1]
+
 ## I. - Coleta de Dados
 
 A princípio, coletamos os dados que serão analisados. No escopo desse projeto, é o primates_dataset.csv, um arquivo CSV, mas poderiam também ser extraídos de um banco de dados, APIs, dentre outras fontes.
 
-Com o intuito de facilitar a visualização dos dados, foi criado uma classe de utilidade chamada **Query**. Essa classe é responsável por tratar o CSV como um banco de dados relacional, trazendo suporte à consultas em formato similar à ORMs como TypeORM, SQLAlchemy, Eloquent, dentre outros. Pra se parecer com a sintaxe de ORMs, a classe tem métodos encadeáveis que visam a padronização do SQL padrão ANSI.
+Com o intuito de facilitar a visualização dos dados, foi criado uma classe de utilidade chamada **Query**. Essa classe é responsável por tratar o CSV como um banco de dados relacional, trazendo suporte à consultas em formato similar à ORMs como TypeORM, SQLAlchemy, Eloquent, dentre outros. Pra se parecer com a sintaxe de ORMs, a classe tem métodos encadeáveis que visam a padronização do SQL padrão ANSI.[^2]
 
 ## II. - Análise das variáveis
 
@@ -70,11 +72,11 @@ Dos dados reunidos acima, é possível inferir sobre cada um deles seus tipos pr
 
 #### II.2.1 - genetic_variation
 
-A variável genetic_variation implica variação genética da espécie, mas variação à oque? De acordo com [algumas informações](https://humanorigins.si.edu/evidence/genetics#:~:text=The%20DNA%20difference%20with%20gorillas,Asian%20great%20ape%2C%20the%20orangutan.), os valores batem com a variação genética do gene da espécie referente o gene humano. Mas nas mesmas fontes, outros valores são providenciados, e discutir a veracidade do fornecido pelo CSV é plausível.[^1]
+A variável genetic_variation implica variação genética da espécie, mas variação à oque? De acordo com [algumas informações](https://humanorigins.si.edu/evidence/genetics#:~:text=The%20DNA%20difference%20with%20gorillas,Asian%20great%20ape%2C%20the%20orangutan.), os valores batem com a variação genética do gene da espécie referente o gene humano. Mas nas mesmas fontes, outros valores são providenciados, e discutir a veracidade do fornecido pelo CSV é plausível.[^3]
 
 #### II.2.2 - health_status
 
-Podemos inferir que esses valores se referem à classificação determinada pela [União Internacional pela Conservação da Natureza](https://www.iucn.org/)União Internacional pela Conservação da Natureza. Na amostragem dos dados II.1, os dados referentes à variável "health_status" já estão em ordem (de cima pra baixo) pra mais próxima da extinção.[^2]
+Podemos inferir que esses valores se referem à classificação determinada pela [União Internacional pela Conservação da Natureza](https://www.iucn.org/)União Internacional pela Conservação da Natureza. Na amostragem dos dados II.1, os dados referentes à variável "health_status" já estão em ordem (de cima pra baixo) pra mais próxima da extinção.[^4]
 
 #### II.2.3 - latitude & longitude
 
@@ -112,13 +114,13 @@ Na linha 4, a espécie "Gibbon" está sem habitat_region. Vemos em outras linhas
 
 Pro caso das linhas 13 e 63, o valor da população da espécie "Orangutan" está faltando. Para isso, podemos ou prever qual era a população do momento pra substituí-lo, ou deletar a informação.
 
-Se a quantidade de dados ausentes é pequena e não compromete significativamente a integridade da análise, optamos pela remoção das linhas com valores ausentes. Isso é totalmente válido, se houver um número suficiente de outras observações para realizar análises sem esses registros.
+Se a quantidade de dados ausentes é pequena e não compromete significativamente a integridade da análise, optamos pela remoção das linhas com valores ausentes. Isso é totalmente válido, se houver um número suficiente de outras observações para realizar análises sem esses registros.[^5]
 
 Entretanto, se a remoção das linhas não é desejável devido à perda de dados, é plausível considerarmos estimar o valor ausente com base em uma média ou outra medida central dos valores disponíveis.
 
 A escolha entre essas abordagens depende do contexto específico do estudo e das características dos dados. Enquanto a remoção garante que a análise seja feita apenas com dados originais e completos, ela reduz a quantidade total de dados disponíveis. Já a estimação do valor ausente permite manter mais dados para a análise, mas introduz uma estimativa que pode afetar a precisão dos resultados.
 
-Cabe ao cientista/analista de dados decidir baseado em seu contexto: revisar as diretrizes/normas aplicáveis à sua análise, garantindo que as escolhas sejam adequadas e bem fundamentadas, e também deve-se considerar a consulta de especialistas ou colegas do projeto.
+Cabe ao cientista/analista de dados decidir baseado em seu contexto: revisar as diretrizes/normas aplicáveis à sua análise, garantindo que as escolhas sejam adequadas e bem fundamentadas, e também deve-se considerar a consulta de especialistas ou colegas do projeto.[^6]
 
 #### III.1.2 - Manter a transparência
 
@@ -154,26 +156,48 @@ Utilizando esse método, foi possível inferir que todos os dados estão consist
 
 "Outliers" são valores que se desviam significativamente dos outros dados em um conjunto. Podem ser causados por erros de medição, entrada incorreta de dados, ou até mesmo valores legítimos, representando variabilidade real no conjunto de dados em questão. Eles podem distorcer estatísticas descritivas como média e desvio padrão, afetar modelos estatísticos de Machine Learning e influenciar negativamente na visualização de dados. Em resumo, são dados anômalos que podem distorcer a análise.
 
-A identificação e remoção dos outliers é uma etapa importante na análise de dados, mas deve ser realizada com cuidado para garantir que os resultados finais sejam precisos. Possíveis formas de identificar outliers são por meio de métodos estatísticos e pela visualização direta dos dados.
+A identificação e remoção dos outliers é uma etapa importante na análise de dados, mas deve ser realizada com cuidado para garantir que os resultados finais sejam precisos. Possíveis formas de identificar outliers são por meio de métodos estatísticos e pela visualização direta dos dados.[^7]
 
-#### III.2.1 - Métodos Estatístico Z-Score
+#### III.2.1 - Método Estatístico Z-Score
 
 O Z-Score é uma pontuação que mede quantos desvios padrão um valor está distante da média. Valores de Z-Score acima de 3 ou abaixo de -3 (ou, simplesmente, o valor absoluto do Z-Score acima de 3) são geralmente considerados outliers. Pontuações positivas indicam que o valor está acima da média, enquanto que a pontuação negativa indica que está abaixo dessa média. Serve pra determinar a volatilidade dos dados do conjunto.
 
-O desvio padrão é essencialmente um reflexo da quantidade de variabilidade dentro desse conjunto. Segundo estudos decorrentes desde a década de 1960[^3], 99,7% dos valores prestativos contam dentro desse intervalo de -3 a 3. No entanto, ele é tão preciso quanto os dados inseridos nele, logo, não é imune à dados falsos ou inseridos errôneamente. É por isso que a etapa de remoção de anomalias é uma das últimas na limpeza.[^4]
+O desvio padrão é essencialmente um reflexo da quantidade de variabilidade dentro desse conjunto. Segundo estudos decorrentes desde a década de 1960[^8], 99,7% dos valores prestativos contam dentro desse intervalo de -3 a 3. No entanto, ele é tão preciso quanto os dados inseridos nele, logo, não é imune à dados falsos ou inseridos errôneamente. É por isso que a etapa de remoção de anomalias é uma das últimas na limpeza.[^9]
 
-1. Calculamos a média dos valores da coluna de interesse.
-2. Da mesma forma, calculamos o desvio padrão.
-3. Calculamos o Z-Score pra cada valor na coluna subtraindo o valor pela média e dividindo pelo desvio padrão.
+1. Calculamos a média dos valores da coluna de interesse;
+2. Da mesma forma, calculamos o desvio padrão;
+3. Calculamos o Z-Score pra cada valor na coluna subtraindo o valor pela média e dividindo pelo desvio padrão;
 4. Identificar todos os valores que, absolutos, são maiores que 3.
 
 Pra atingir isso, foi-se criado o método **z_score** na classe **Outliers**. Essa classe servirá pra comportar os métodos de rastreamento de anomalias, sendo o método z_score, a métrica apresentada agora.
 
-Com esse método, foi possível notar que nossos dados populacionais não estão voláteis.
+Com esse método, foi possível notar que nossos dados populacionais e de média de vida não estão voláteis.
+
+#### III.2.2 - Método Estatístico Interquartile Range
+
+O IQR é a diferença entre o terceiro quartil (Q3) e o primeiro quartil (Q1) do conjunto de dados. Valores que estão abaixo de Q1 - 1.5 _ IQR ou acima de Q3 + 1.5 _ IQR são, normalmente, considerados outliers.[^10]
+
+1. Encontramos o valor do primeiro quartil;
+2. Encontramos o valor do terceiro quartil;
+3. Calculamos o IQR subtraindo o terceiro quartil do primeiro;
+4. Identificamos todos os valores menores que Q1 - 1.5IQR e maiores que Q3 + 1.5IQR.
+
+Pra cumprir com esse fim, foi criado o método **interquartile_range**, também na classe **Outliers**. Com esse método, foi possível notar que os dados de média de vida não estão muito discrepantes. No entanto, há registro de dados discrepantes quanto à população, especificamente, de chimpanzés.
+
+No entanto, deve-se ter ciência do contexto do domínio dos dados e análise da sensibilidade para interpretar corretamente os outliers. Nem todos os valores extremos são, necessariamente, erros ou dados a serem removidos. Ao analisar, visualmente, o CSV, vemos que a população das espécies é aproximadamente a mesma, com pouca variação, exceto para os chimpanzés, que têm, realmente, uma população mais alta do que das demais. No entanto, isso não é um erro: é simplesmente uma observação de que há um grupo com população maior.[^11]
+
+Sendo assim, conclui-se que nenhuma remoção ou alteração desses valores será necessária.
 
 # Bibliografia
 
-[^1]: GENETIC Evidence. The Smithsonian National Museum of Natural History. Disponível em: https://humanorigins.si.edu/evidence/genetics . Acesso em: 29 de jun. de 2024.
-[^2]: IUCN, IUCN. Página inicial. Disponível em: https://www.iucn.org/ . Acesso em: 29 de jun. de 2024.
-[^3]: Z-SCORE: saiba o que é e como funciona. Mais Retorno, 2022. Disponível em: https://maisretorno.com/portal/termos/z/z-score . Acesso em: 29 de jun. de 2024.
-[^4]: Z-SCORE. Oracle Help Center. Disponível em: https://docs.oracle.com/cloud/help/pt_BR/pbcs_common/PFUSU/insights_metrics_Z-Score.htm#PFUSU-GUID-640CEBD1-33A2-4B3C-BD81-EB283F82D879 . Acesso em: 30 de jun. de 2024.
+[^1]: ENTENDA o que é análise de dados, quais os processos envolvidos e como implementar na sua empresa. Cinnecta. Disponível em: https://cinnecta.com/conteudos/analise-de-dados/ . Acesso em: 2 de jul. de 2024.
+[^2]: ANSI SQL O idioma para sistemas de gerenciamento de banco de dados relacional. FasterCapital. Disponível em: https://fastercapital.com/pt/contente/ANSI-SQL--O-idioma-para-sistemas-de-gerenciamento-de-banco-de-dados-relacional.html#:~:text=A%20ANSI%20SQL%2C%20ou%20American,padr%C3%A3o%20atual%20ANSI%20SQL%3A%202016. . Acesso em: 2 de jul. de 2024.
+[^3]: GENETIC Evidence. The Smithsonian National Museum of Natural History. Disponível em: https://humanorigins.si.edu/evidence/genetics . Acesso em: 29 de jun. de 2024.
+[^4]: IUCN, IUCN. Página inicial. Disponível em: https://www.iucn.org/ . Acesso em: 29 de jun. de 2024.
+[^5]: JÚNIOR, Clébio de Oliveira. Feature Engineering: Técnicas para lidar com dados faltantes em um projeto de ciência de dados. Medium. Disponível em: https://medium.com/data-hackers/feature-engineering-t%C3%A9cnicas-para-lidar-com-dados-faltantes-em-um-projeto-de-ci%C3%AAncia-de-dados-debdd57eb662 . Acesso em: 2 de jul. de 2024.
+[^6]: MACHINE Learning: Preenchimento de zeros - Manipulação de dados faltantes. Awari. Disponível em: https://awari.com.br/machine-learning-preenchimento-de-zeros-manipulacao-de-dados-faltantes-2/?utm_source=blog&utm_campaign=projeto+blog&utm_medium=Machine%20Learning:%20Preenchimento%20de%20zeros%20-%20Manipula%C3%A7%C3%A3o%20de%20dados%20faltantes . Acesso em: 2 de jul. de 2024.
+[^7]: MEDEIROS, Ricardo. Tratando Valores Outliers em um DataFrame usando Python. Disponível em: https://www.dio.me/articles/tratando-valores-outliers-em-um-dataframe-usando-python . Acesso em: 2 de jul. de 2024.
+[^8]: Z-SCORE: saiba o que é e como funciona. Mais Retorno, 2022. Disponível em: https://maisretorno.com/portal/termos/z/z-score . Acesso em: 30 de jun. de 2024.
+[^9]: Z-SCORE. Oracle Help Center. Disponível em: https://docs.oracle.com/cloud/help/pt_BR/pbcs_common/PFUSU/insights_metrics_Z-Score.htm#PFUSU-GUID-640CEBD1-33A2-4B3C-BD81-EB283F82D879 . Acesso em: 30 de jun. de 2024.
+[^10]: BHANDARI, Pritha. How to Find Interquartile Range (IQR) | Calculator & Examples. Disponível em: https://www.scribbr.com/statistics/interquartile-range/ . Acesso em: 2 de jul. de 2024.
+[^11]: MACIEL, Prof. Fernanda. Excluir Outliers? Usar média ou mediana? | Prof. Fernanda Maciel. YouTube, 23 de ago. de 2021. 3m31s. Disponível em: https://www.youtube.com/watch?v=o3uTAZyROI8 . Acesso em: 2 de jul. de 2024.

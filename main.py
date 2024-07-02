@@ -26,6 +26,9 @@ def main():
 
     # Procurando por outliers
     Outliers.z_score(primate_filled.data["population"])
+    Outliers.z_score(primate_filled.data["avg_lifespan"])
+    Outliers.interquartile_range(primate_filled.data["population"])
+    Outliers.interquartile_range(primate_filled.data["avg_lifespan"])
 
 if __name__ == "__main__":
     main()
