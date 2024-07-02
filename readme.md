@@ -1,6 +1,35 @@
+# Análise de Dados Populacionais de Primatas
+
+## Descrição
+
+O intuito desse projeto, como parte do Sprint 1 da equipe PrimaType, é, principalmente, aprender as várias etapas fundamentais da ciência de dados, envolvendo coleta, limpeza/tratamento, e visualização dos dados. O objetivo é realizar uma análise detalhada dos dados populacionais de diferentes espécies de primatas utilizando Python e bibliotecas essenciais para o ramo.
+
+## Estrutura do Repositório
+
+```plaintext
+.
+├── reports
+│ ├── report.md # Relatório final do projeto em MarkDown (Existência opcional)
+│ │
+│ └── analysis-primate-population-data.pdf # Relatório final do projeto em PDF (Ainda não projetado)
+│
+├── scripts # Arquivos opcionais de Python para manipulação e limpeza dos dados
+│
+├── storage
+│ ├── data
+│ │ ├── processed # Arquivos de Dataset limpos
+│ │ └── raw # Arquivos de Dataset brutos
+│ │
+│ └── logs # Arquivos opcionais de registro pra facilitar desenvolvimento
+│
+└── utils # Arquivos opcionais de Python para facilitar desenvolvimento
+```
+
 # Setup
 
 ## Instalando o projeto
+
+### Requisitos
 
 1. Clonar o repositório;
 2. Entrar no diretório do projeto;
@@ -47,19 +76,7 @@ pip install -r requirements.txt
 
 O arquivo `requirements.txt` lista as dependências do projeto em um único arquivo pra não ser necessário olhar arquivo por arquivo, ou baixar dependência por dependência.
 
-# Arquitetura de pastas do projeto
-
-.
-├── reports
-├── scripts
-├── storage
-│ ├── data
-│ │ ├── processed
-│ │ └── raw
-│ └── logs
-└── utils
-
-# Análise de Dados Populacionais de Primatas
+# Edital
 
 Segue abaixo o edital do desafio.
 
