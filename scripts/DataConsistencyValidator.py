@@ -1,4 +1,5 @@
 from typing import Union
+from numpy import ndarray
 import pandas as pd
 from utils.DAO import DAO
 from utils.Log import Log
@@ -15,8 +16,8 @@ class DataConsistencyValidator:
     verify_all_data_entries(data: pd.DataFrame)
         Verifica valores nulos nos dados no DataFrame fornecido.
     verify_column_consistency(data: 'DAO', columns: Union[str, list[str]]) -> bool
-        Verifica a consistência dos valores colunas especificadas para cada espécie 
-        de primata, tendo fornecido o DAO.
+        Verifica a consistência dos valores nas colunas especificadas para cada 
+        linha única no DAO.
     """
 
     @classmethod
@@ -82,16 +83,20 @@ class DataConsistencyValidator:
 
     @classmethod
     @Log.track
-    def verify_column_consistency(cls, data: 'DAO', columns: Union[str, list[str]]) -> bool:
+    def verify_column_consistency(cls, unique_row_name: str, unique_rows: ndarray, data: 'DAO', columns: Union[str, list[str]]) -> bool:
         """
-        Verifica a consistência dos valores colunas especificadas para cada espécie de primata, 
-        tendo fornecido o DAO.
+        Verifica a consistência dos valores nas colunas especificadas para cada linha única, 
+        fornecendo o DAO.
 
-        Este método percorre todas as espécies únicas e verifica se os valores nas colunas 
-        especificadas são consistentes para cada ocorrência da espécie.
+        Este método percorre todas as linhas únicas especificadas e verifica se os valores 
+        nas colunas especificadas são consistentes para cada ocorrência da espécie.
 
         Parâmetros
         ----------
+        unique_row_name : str
+            O nome da linha única.
+        unique_rows : ndarray
+            Um array contendo as linhas únicas a serem verificadas.
         data : DAO
             O DAO contendo os dados a serem verificados.
         columns : str or list[str]
@@ -109,14 +114,15 @@ class DataConsistencyValidator:
 
         Notas
         -----
-        Este método utiliza o método `query` do DAO para realizar a consulta e limita a verificação
-        aos primeiros 10 registros de cada espécie para conseguir cada espécie unicamente uma vez.
+        Este método utiliza o método `query` do DAO para realizar a consulta e verifica a consistência
+        de valores em todas as ocorrências das espécies únicas fornecidas.
         Este método não trata exceções internamente, mas as registra usando o logger configurado.
 
         Exemplo
         -------
         >>> dao = DAO("exemplo.csv")
-        >>> DataConsistencyValidator.verify_column_consistency(dao, "habitat_region")
+        >>> unique_species = dao.query().get()["species_name"].unique()
+        >>> DataConsistencyValidator.verify_column_consistency("species_name", unique_species, dao, "habitat_region")
         Valor diferente na linha 10 para a espécie Gorilla na coluna habitat_region
         Valor diferente na linha 20 para a espécie Gorilla na coluna habitat_region
         """
@@ -124,11 +130,10 @@ class DataConsistencyValidator:
             if isinstance(columns, str):
                 columns = [columns]
 
-            all_species_names = data.query().limit(10).get()["species_name"].values
             had_any_inconsistency: bool = False
 
-            for species_name in all_species_names:
-                all_rows = data.query().where("species_name", "==", species_name).get()
+            for unique_row in unique_rows:
+                all_rows = data.query().where(unique_row_name, "==", unique_row).get()
 
                 for column in columns:
                     first_value = all_rows.iloc[0][column]
@@ -139,7 +144,7 @@ class DataConsistencyValidator:
                         current_value = row[column]
 
                         if current_value != first_value:
-                            print(f"Valor diferente na linha {index} para a espécie {species_name} na coluna {column}")
+                            print(f"Valor diferente na linha {index} para a linha única {unique_row} na coluna {column}")
                             if (not had_any_inconsistency): 
                                 had_any_inconsistency = True
             

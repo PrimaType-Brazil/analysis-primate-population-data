@@ -1,3 +1,4 @@
+from numpy import ndarray
 from utils.DAO import DAO
 from scripts.DataConsistencyValidator import DataConsistencyValidator
 from scripts.Outliers import Outliers
@@ -22,7 +23,10 @@ def main():
     print(primate_filled.query().where("species_name", "==", "Orangutan").get())
 
     # Verificando consistência de valores fixos
-    DataConsistencyValidator.verify_column_consistency(primate_filled, ["habitat_region", "diet", "social_behavior", "genetic_variation", "health_status", "latitude", "longitude"])
+
+    unique_row_name: str = "species_name"
+    all_species_names: ndarray = primate_filled.query().limit(10).get()[unique_row_name].values
+    DataConsistencyValidator.verify_column_consistency(unique_row_name, all_species_names, primate_filled, ["habitat_region", "diet", "social_behavior", "genetic_variation", "health_status", "latitude", "longitude"])
 
     # Procurando por outliers
     Outliers.z_score(primate_filled.data["population"])
