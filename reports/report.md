@@ -194,6 +194,8 @@ Saindo da etapa de limpeza, remoção e tratamento dos dados, temos o processo d
 
 Como até agora todo o código tem sido escrito em orientação a objetos, faz muito sentido separarmos cada dado de primata em uma classe própria **Primate**. Essa classe separa todas as informações necessárias em seus devidos tipos primitivos, ou não: alguns dados qualitativos e outras informações mais específicas tiveram tipagens próprias também, definidas na utilidade **Types**. A classe Primate também reforça a tipagem lançando exceções (erros) caso seja inserido um dado inválido, pois, em se tratando da análise de dados, é plausível querer sensibilidade em relação ao que estamos trabalhando. Toda informação importa e deve ser exatamente o que esperamos (ou precisamos) que seja.
 
+No entanto, como queremos que nossa classe Primate apenas comporte as informações referentes aos primatas que estamos estudando, manter a complexidade de código de validação de entrada dos dados, bem como assegurar a estrutura de cada uma distorce o propósito da classe. Por conta disso, foi decidido criar um arquivo **PrimateFactory**, que, como em Java, é responsável pela complexidade extra na criação da classe que desejamos. Assim, cada arquivo bate exatamente com a expectativa de que teria dentro.
+
 ## IV. - Transformação dos Dados
 
 Tendo os conjuntos de dados sido devidamente agregados e separados em suas estruturas mais apropriadas, uma importante etapa é a normalização / padronização destes. Essa etapa está, principalmente, ligada à Machine Learning (aprendizado de máquina), redes neurais e modelos de linguagem. Portanto, é muito comum explorarmos a biblioteca scikit-learn.
