@@ -196,17 +196,52 @@ Como até agora todo o código tem sido escrito em orientação a objetos, faz m
 
 No entanto, como queremos que nossa classe Primate apenas comporte as informações referentes aos primatas que estamos estudando, manter a complexidade de código de validação de entrada dos dados, bem como assegurar a estrutura de cada uma distorce o propósito da classe. Por conta disso, foi decidido criar um arquivo **PrimateFactory**, que, como em Java, é responsável pela complexidade extra na criação da classe que desejamos. Assim, cada arquivo bate exatamente com a expectativa de que teria dentro.
 
-## IV. - Transformação dos Dados
+## V. - Transformação dos Dados
 
 Tendo os conjuntos de dados sido devidamente agregados e separados em suas estruturas mais apropriadas, uma importante etapa é a normalização / padronização destes. Essa etapa está, principalmente, ligada à Machine Learning (aprendizado de máquina), redes neurais e modelos de linguagem. Portanto, é muito comum explorarmos a biblioteca scikit-learn.
 
 Scikit-learn é uma biblioteca de Python desenvolvida especificamente para a aplicação prática do machine learning. Dispõe de ferramentas simples e eficientes para análise preditiva de dados, é reutilizável, código aberto e acessível, principalmente por ter sido construída em cima de outras bibliotecas muito bem conhecidas e consolidadas: NumPy, SciPy e matplotlib.[^13]
 
-Suas principais aplicações envolvem pré-processamento de dados, classificação, regressão, clusterização, redução de dimensionalidade, ajuste de parâmetros, dentre outras funcionalidades. Nem todas serão vistas devido ao escopo desse projeto, mas será bem explorada.[^13]
+Suas principais aplicações envolvem pré-processamento de dados, classificação, regressão, clusterização, redução de dimensionalidade, ajuste de parâmetros, dentre outras funcionalidades. Não serão vistas devido ao escopo desse projeto, mas serão exploradas.[^13]
 
-### IV.1 - Codificação de Dados Categóricos
+### V.1 - Codificação de Dados Categóricos
 
 Dados categóricos (qualitativos) têm esse nome por serem divididos, separados em categorias. Exemplos incluem cores, marcas, etc. Os modelos de Machine Learning esperam receber dados numéricos, na grande maioria dos casos não é possível usar variáveis categóricas nesses modelos. É necessário converter eles em variáveis numéricas, de uma forma que mantenha a informação e a relação entre os dados.[^14]
+
+#### V.1.1 - Codificação de Rótulo (Label Encoding)
+
+A Codificação de Rótulo é uma técnica em que cada categoria única é atribuída a um número inteiro único. Por exemplo, "vermelho" e "azul" em uma coluna "Cores" poderiam ser 0 e 1.[^14]
+
+Vale notar que a Codificação de Rótulo cria uma suposição implícita de que as categorias têm uma ordem, ou hierarquia, que pode ou não existir. Nesse sentido, é melhor utilizá-la para variáveis categóricas ordinais, isto é, seguem uma ordem intrínseca. Um exemplo seria "pequeno", "médio", "grande". Em caso de variáveis categóricas nominais, outras técnicas seriam mais apropriadas.[^14]
+
+#### V.1.2 - Codificação One-Hot
+
+Um dos métodos mais comuns, essa técnica transforma cada categoria em uma nova coluna binária (0 ou 1). A ausência dessa categoria indica 0 e a presença, 1. Por exemplo, uma coluna "Gênero" com valores "Macho" e "Fêmea" se transformariam em duas colunas: "Gênero_Macho" e "Gênero_Fêmea". Os antigos dados que teriam "Macho" preenchido na coluna "Gênero" agora teriam 1 na coluna "Gênero_Macho" e 0 na coluna "Gênero_Fêmea".[^14]
+
+Apesar de ser uma das codificações mais utilizadas e eficazes, ela aumenta a dimensionalidade do conjunto de dados se existirem muitas categorias únicas. Isso aumenta o tempo de computação e memória, além de reduzir o desempenho.[^14]
+
+Existem várias outras métricas, cada uma abrange um escopo diferente. A escolha de cada uma vai do tipo de dado analisado e da prefêrencia da equipe analisando.
+
+## VI. - Normalização dos Dados
+
+A normalização dos dados é uma técnica de pré-processamento de dados pra ajustar os valores de diferentes variáveis em uma escala comum, sem distorcer as diferenças nos intervalos de valores. Ela é importante pra garantir que todas contribuam igualmente para a análise ou modelo, evitando que seu estudo fique enviesado para as variáveis com maior ordem de grandeza.[^15]
+
+As técnicas mais utilizadas de normalização em Aprendizado de Máquina são: Min-max, Z-Score, e Log Scaling.[^16] Falaremos somente sobre a Min-max, haja vista que a Z-Score já foi comentada.
+
+### VI.1 - Min-Max Scaling
+
+A técnica Min-max reescala valores à um alcance entre 0 e 1, ou -1 e 1.
+
+Um valor x está normalizado nessa métrica, ao subtraí-lo pelo valor mínimo encontrado na coluna e dividido pela subtração do máximo pelo mínimo.
+
+Por exemplo, em 5 números: 14, 9, 24, 39 e 60. O menor valor é 9 e o maior é 60. Portanto, o valor normalizado de 60 seria 1 e o de 9 seria 0, e dos intermediários:
+14: (14 - 9) / (60 - 9) = 5 / 51 = 0.098
+24: (24 -9) / (60 - 9) =15 / 51 = 0.29
+39: (39 - 9) / (60 - 9) = 30 / 51 = 0.58
+
+A biblioteca sklearn.preprocessing.MinMaxScaler implementa isso pra gente. Utilizando os métodos fit() e depois transform() com nossos dados como parâmetros, recebemos esses dados normalizados.[^16]
+
+Nesse projeto, não usaremos normalização de dados.
 
 # Bibliografia
 
@@ -224,3 +259,5 @@ Dados categóricos (qualitativos) têm esse nome por serem divididos, separados 
 [^12]: SPASOJEVIC, Anastasia. O que é agregação de dados?. phoenixNAP Global IT Services. Disponível em: https://www.phoenixnap.pt/gloss%C3%A1rio/Agrega%C3%A7%C3%A3o-de-dados . Acesso em: 5 de jul. de 2024.
 [^13]: A Biblioteca scikit-learn - Python: o que é, para que serve. Didática Tech. Disponível em: https://medium.com/@pedrorp/guia-de-codificadores-de-atributos-categ%C3%B3ricos-em-machine-learning-60a9f22c9a3b . Acesso em: 3 de jul. de 2024.
 [^14]: PASSOS, Pedro César Ribeiro. Guia de Codificadores de Atributos Categóricos em Machine Learning. Disponível em: https://medium.com/@pedrorp/guia-de-codificadores-de-atributos-categ%C3%B3ricos-em-machine-learning-60a9f22c9a3b . Acesso em: 3 de jul. de 2024.
+[^15]: VAZ, Arthur Lamblet. Normalizar ou padronizar as variáveis?. Medium. Disponível em: https://medium.com/data-hackers/normalizar-ou-padronizar-as-vari%C3%A1veis-3b619876ccc9 . Acesso em: 6 de jul. de 2024.
+[^16]: DATA Normalization With Python Scikit-Learn: Tips & Tricks for Data Science. Turing. Disponível em: https://www.turing.com/kb/data-normalization-with-python-scikit-learn-tips-tricks-for-data-science . Acesso em: 6 de jul. de 2024.

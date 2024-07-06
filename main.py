@@ -41,9 +41,7 @@ def main():
     all_primates: pd.DataFrame = primate_filled.query().limit(10).get()
     for _, row in all_primates.iterrows():
         structured_primates.append(PrimateFactory.create_primate(row, primate_filled))
-
     print(structured_primates[0])
-    
 
 if __name__ == "__main__":
     main()
