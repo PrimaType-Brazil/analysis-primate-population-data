@@ -188,6 +188,24 @@ No entanto, deve-se ter ciência do contexto do domínio dos dados e análise da
 
 Sendo assim, conclui-se que nenhuma remoção ou alteração desses valores será necessária.
 
+## IV. - Agregação de Dados
+
+Saindo da etapa de limpeza, remoção e tratamento dos dados, temos o processo de resumir os conjuntos de dados. Coletar e agrupar os dado em um formato compacto permite compreender mais facilmente e representa melhor visões estatísticas. Dados agrupados facilitam o processo de tomada de decisão.[^12]
+
+Como até agora todo o código tem sido escrito em orientação a objetos, faz muito sentido separarmos cada dado de primata em uma classe própria **Primate**. Essa classe separa todas as informações necessárias em seus devidos tipos primitivos, ou não: alguns dados qualitativos e outras informações mais específicas tiveram tipagens próprias também, definidas na utilidade **Types**. A classe Primate também reforça a tipagem lançando exceções (erros) caso seja inserido um dado inválido, pois, em se tratando da análise de dados, é plausível querer sensibilidade em relação ao que estamos trabalhando. Toda informação importa e deve ser exatamente o que esperamos (ou precisamos) que seja.
+
+## IV. - Transformação dos Dados
+
+Tendo os conjuntos de dados sido devidamente agregados e separados em suas estruturas mais apropriadas, uma importante etapa é a normalização / padronização destes. Essa etapa está, principalmente, ligada à Machine Learning (aprendizado de máquina), redes neurais e modelos de linguagem. Portanto, é muito comum explorarmos a biblioteca scikit-learn.
+
+Scikit-learn é uma biblioteca de Python desenvolvida especificamente para a aplicação prática do machine learning. Dispõe de ferramentas simples e eficientes para análise preditiva de dados, é reutilizável, código aberto e acessível, principalmente por ter sido construída em cima de outras bibliotecas muito bem conhecidas e consolidadas: NumPy, SciPy e matplotlib.[^13]
+
+Suas principais aplicações envolvem pré-processamento de dados, classificação, regressão, clusterização, redução de dimensionalidade, ajuste de parâmetros, dentre outras funcionalidades. Nem todas serão vistas devido ao escopo desse projeto, mas será bem explorada.[^13]
+
+### IV.1 - Codificação de Dados Categóricos
+
+Dados categóricos (qualitativos) têm esse nome por serem divididos, separados em categorias. Exemplos incluem cores, marcas, etc. Os modelos de Machine Learning esperam receber dados numéricos, na grande maioria dos casos não é possível usar variáveis categóricas nesses modelos. É necessário converter eles em variáveis numéricas, de uma forma que mantenha a informação e a relação entre os dados.[^14]
+
 # Bibliografia
 
 [^1]: ENTENDA o que é análise de dados, quais os processos envolvidos e como implementar na sua empresa. Cinnecta. Disponível em: https://cinnecta.com/conteudos/analise-de-dados/ . Acesso em: 2 de jul. de 2024.
@@ -196,8 +214,11 @@ Sendo assim, conclui-se que nenhuma remoção ou alteração desses valores ser�
 [^4]: IUCN, IUCN. Página inicial. Disponível em: https://www.iucn.org/ . Acesso em: 29 de jun. de 2024.
 [^5]: JÚNIOR, Clébio de Oliveira. Feature Engineering: Técnicas para lidar com dados faltantes em um projeto de ciência de dados. Medium. Disponível em: https://medium.com/data-hackers/feature-engineering-t%C3%A9cnicas-para-lidar-com-dados-faltantes-em-um-projeto-de-ci%C3%AAncia-de-dados-debdd57eb662 . Acesso em: 2 de jul. de 2024.
 [^6]: MACHINE Learning: Preenchimento de zeros - Manipulação de dados faltantes. Awari. Disponível em: https://awari.com.br/machine-learning-preenchimento-de-zeros-manipulacao-de-dados-faltantes-2/?utm_source=blog&utm_campaign=projeto+blog&utm_medium=Machine%20Learning:%20Preenchimento%20de%20zeros%20-%20Manipula%C3%A7%C3%A3o%20de%20dados%20faltantes . Acesso em: 2 de jul. de 2024.
-[^7]: MEDEIROS, Ricardo. Tratando Valores Outliers em um DataFrame usando Python. Disponível em: https://www.dio.me/articles/tratando-valores-outliers-em-um-dataframe-usando-python . Acesso em: 2 de jul. de 2024.
+[^7]: MEDEIROS, Ricardo. Tratando Valores Outliers em um DataFrame usando Python. dio. Disponível em: https://www.dio.me/articles/tratando-valores-outliers-em-um-dataframe-usando-python . Acesso em: 2 de jul. de 2024.
 [^8]: Z-SCORE: saiba o que é e como funciona. Mais Retorno, 2022. Disponível em: https://maisretorno.com/portal/termos/z/z-score . Acesso em: 30 de jun. de 2024.
 [^9]: Z-SCORE. Oracle Help Center. Disponível em: https://docs.oracle.com/cloud/help/pt_BR/pbcs_common/PFUSU/insights_metrics_Z-Score.htm#PFUSU-GUID-640CEBD1-33A2-4B3C-BD81-EB283F82D879 . Acesso em: 30 de jun. de 2024.
-[^10]: BHANDARI, Pritha. How to Find Interquartile Range (IQR) | Calculator & Examples. Disponível em: https://www.scribbr.com/statistics/interquartile-range/ . Acesso em: 2 de jul. de 2024.
+[^10]: BHANDARI, Pritha. How to Find Interquartile Range (IQR) | Calculator & Examples. Scribbr. Disponível em: https://www.scribbr.com/statistics/interquartile-range/ . Acesso em: 2 de jul. de 2024.
 [^11]: MACIEL, Prof. Fernanda. Excluir Outliers? Usar média ou mediana? | Prof. Fernanda Maciel. YouTube, 23 de ago. de 2021. 3m31s. Disponível em: https://www.youtube.com/watch?v=o3uTAZyROI8 . Acesso em: 2 de jul. de 2024.
+[^12]: SPASOJEVIC, Anastasia. O que é agregação de dados?. phoenixNAP Global IT Services. Disponível em: https://www.phoenixnap.pt/gloss%C3%A1rio/Agrega%C3%A7%C3%A3o-de-dados . Acesso em: 5 de jul. de 2024.
+[^13]: A Biblioteca scikit-learn - Python: o que é, para que serve. Didática Tech. Disponível em: https://medium.com/@pedrorp/guia-de-codificadores-de-atributos-categ%C3%B3ricos-em-machine-learning-60a9f22c9a3b . Acesso em: 3 de jul. de 2024.
+[^14]: PASSOS, Pedro César Ribeiro. Guia de Codificadores de Atributos Categóricos em Machine Learning. Disponível em: https://medium.com/@pedrorp/guia-de-codificadores-de-atributos-categ%C3%B3ricos-em-machine-learning-60a9f22c9a3b . Acesso em: 3 de jul. de 2024.

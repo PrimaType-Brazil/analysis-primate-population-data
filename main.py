@@ -1,4 +1,7 @@
+import pandas as pd
 from numpy import ndarray
+from models.Primate import Primate
+from models.factories.PrimateFactory import PrimateFactory
 from utils.DAO import DAO
 from scripts.DataConsistencyValidator import DataConsistencyValidator
 from scripts.Outliers import Outliers
@@ -23,7 +26,6 @@ def main():
     print(primate_filled.query().where("species_name", "==", "Orangutan").get())
 
     # Verificando consistência de valores fixos
-
     unique_row_name: str = "species_name"
     all_species_names: ndarray = primate_filled.query().limit(10).get()[unique_row_name].values
     DataConsistencyValidator.verify_column_consistency(unique_row_name, all_species_names, primate_filled, ["habitat_region", "diet", "social_behavior", "genetic_variation", "health_status", "latitude", "longitude"])
@@ -33,6 +35,15 @@ def main():
     Outliers.z_score(primate_filled.data["avg_lifespan"])
     Outliers.interquartile_range(primate_filled.data["population"])
     Outliers.interquartile_range(primate_filled.data["avg_lifespan"])
+
+    # Organizando todas as espécies de primatas em uma estrutura de dados adaptada
+    structured_primates: list[Primate] = []
+    all_primates: pd.DataFrame = primate_filled.query().limit(10).get()
+    for _, row in all_primates.iterrows():
+        structured_primates.append(PrimateFactory.create_primate(row, primate_filled))
+
+    print(structured_primates[0])
+    
 
 if __name__ == "__main__":
     main()
