@@ -196,17 +196,17 @@ Scikit-learn é uma biblioteca de Python desenvolvida especificamente para a apl
 
 Suas principais aplicações envolvem pré-processamento de dados, classificação, regressão, clusterização, redução de dimensionalidade, ajuste de parâmetros, dentre outras funcionalidades. Não serão vistas devido ao escopo desse projeto, mas serão exploradas.[^12]
 
-### V.1 - Codificação de Dados Categóricos
+### IV.1 - Codificação de Dados Categóricos
 
 Dados categóricos (qualitativos) têm esse nome por serem divididos, separados em categorias. Exemplos incluem cores, marcas, etc. Os modelos de Machine Learning esperam receber dados numéricos, na grande maioria dos casos não é possível usar variáveis categóricas nesses modelos. É necessário converter eles em variáveis numéricas, de uma forma que mantenha a informação e a relação entre os dados.[^13]
 
-#### V.1.1 - Codificação de Rótulo (Label Encoding)
+#### IV.1.1 - Codificação de Rótulo (Label Encoding)
 
 A Codificação de Rótulo é uma técnica em que cada categoria única é atribuída a um número inteiro único. Por exemplo, "vermelho" e "azul" em uma coluna "Cores" poderiam ser 0 e 1.[^13]
 
 Vale notar que a Codificação de Rótulo cria uma suposição implícita de que as categorias têm uma ordem, ou hierarquia, que pode ou não existir. Nesse sentido, é melhor utilizá-la para variáveis categóricas ordinais, isto é, seguem uma ordem intrínseca. Um exemplo seria "pequeno", "médio", "grande". Em caso de variáveis categóricas nominais, outras técnicas seriam mais apropriadas.[^13]
 
-#### V.1.2 - Codificação One-Hot
+#### IV.1.2 - Codificação One-Hot
 
 Um dos métodos mais comuns, essa técnica transforma cada categoria em uma nova coluna binária (0 ou 1). A ausência dessa categoria indica 0 e a presença, 1. Por exemplo, uma coluna "Gênero" com valores "Macho" e "Fêmea" se transformariam em duas colunas: "Gênero_Macho" e "Gênero_Fêmea". Os antigos dados que teriam "Macho" preenchido na coluna "Gênero" agora teriam 1 na coluna "Gênero_Macho" e 0 na coluna "Gênero_Fêmea".[^13]
 
@@ -220,7 +220,7 @@ A normalização dos dados é uma técnica de pré-processamento de dados pra aj
 
 As técnicas mais utilizadas de normalização em Aprendizado de Máquina são: Min-max, Z-Score, e Log Scaling.[^15] Falaremos somente sobre a Min-max, haja vista que a Z-Score já foi comentada.
 
-### VI.1 - Min-Max Scaling
+### V.1 - Min-Max Scaling
 
 A técnica Min-max reescala valores à um alcance entre 0 e 1, ou -1 e 1.
 
