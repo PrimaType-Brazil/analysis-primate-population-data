@@ -10,7 +10,7 @@ O intuito desse projeto, como parte do Sprint 1 da equipe PrimaType, é, princip
 .
 ├── images # Imagens relevantes pro projeto, gráficos gerados, visualização de dados
 ├── models # Modelos de estrutura de dados referentes ao projeto
-│ ├── factories # Criação e validação das estruturas específicas
+│ └── factories # Criação e validação das estruturas específicas
 │
 ├── reports
 │ ├── report.md # Relatório final do projeto em MarkDown (Existência opcional)
