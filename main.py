@@ -5,6 +5,7 @@ from models.factories.PrimateFactory import PrimateFactory
 from utils.DAO import DAO
 from scripts.DataConsistencyValidator import DataConsistencyValidator
 from scripts.Outliers import Outliers
+from scripts.BarGraph import BarGraph
 
 def main():
     # Recomenda-se que leia o relatório final como acompanhamento ao código.
@@ -41,7 +42,20 @@ def main():
     all_primates: pd.DataFrame = primate_filled.query().limit(10).get()
     for _, row in all_primates.iterrows():
         structured_primates.append(PrimateFactory.create_primate(row, primate_filled))
-    print(structured_primates[0])
+
+    # Exibindo e salvando os gráficos referentes às populações
+    for primate in structured_primates:
+        print(primate)
+        species_name: str = primate.species_name
+        population: dict[str, list[int, int]] = primate.population
+
+        years: list[str] = list(population.keys())[::-1]
+        population_values: list[int] = [pop_data[0] for pop_data in population.values()][::-1]
+        # Não está sendo usado o segundo valor (avg_lifespan) por hora.
+
+        bar_graph: BarGraph = BarGraph(f"População de {species_name}", ("Anos", years), ("População", population_values))
+        bar_graph.show()
+        bar_graph.save()
 
 if __name__ == "__main__":
     main()

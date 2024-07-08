@@ -1,6 +1,29 @@
 from utils.Types import Species, HabitatRegion, Diet, SocialBehavior, HealthStatus
 
 class Primate:
+    """
+    Representa um primata com características específicas.
+
+    Atributos
+    ---------
+    species_name : Species
+        O nome da espécie do primata (um valor literal).
+    population : dict[str, list[int, int]]
+        Dados da população do primata ao longo dos anos, onde as chaves são anos e os valores são listas de dois inteiros (população e expectativa de vida).
+    habitat_region : HabitatRegion
+        A região do habitat natural do primata (um valor literal).
+    diet : Diet
+        O tipo de dieta do primata (um valor literal).
+    social_behavior : SocialBehavior
+        O comportamento social do primata (um valor literal).
+    genetic_variation : float
+        A variação genética dos genes do primata.
+    health_status : HealthStatus
+        O nível de extinção do primata (um valor literal).
+    coordinates : tuple[float, float]
+        As coordenadas geográficas do habitat do primata.
+    """
+
     species_name: Species
     population: dict[str, list[int, int]]
     habitat_region: HabitatRegion

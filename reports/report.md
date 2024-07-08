@@ -243,6 +243,10 @@ Como até agora todo o código tem sido escrito em orientação a objetos, faz m
 
 No entanto, como queremos que nossa classe Primate apenas comporte as informações referentes aos primatas que estamos estudando, manter a complexidade de código de validação de entrada dos dados, bem como assegurar a estrutura de cada uma distorce o propósito da classe. Por conta disso, foi decidido criar um arquivo **PrimateFactory**, que, como em Java, é responsável pela complexidade extra na criação da classe que desejamos. Assim, cada arquivo bate exatamente com a expectativa de que teria dentro.
 
+## VII. - Visualização dos Dados
+
+A etapa de visualização dos dados consiste em observá-los em forma de gráficos e outras informações visuais.
+
 # Bibliografia
 
 [^1]: ENTENDA o que é análise de dados, quais os processos envolvidos e como implementar na sua empresa. Cinnecta. Disponível em: https://cinnecta.com/conteudos/analise-de-dados/ . Acesso em: 2 de jul. de 2024.

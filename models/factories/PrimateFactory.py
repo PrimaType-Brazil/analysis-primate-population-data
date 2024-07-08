@@ -5,8 +5,46 @@ from models.Primate import Primate
 from typing import get_args
 
 class PrimateFactory:
+    """
+    Classe estática responsável pela criação de instâncias de Primate a partir de dados estruturados.
+
+    Métodos
+    -------
+    create_primate(row: pd.Series, primate_data: pd.DataFrame) -> Primate:
+        Cria e retorna um objeto Primate a partir de uma linha (row) de dados e um DataFrame contendo todos os dados.
+
+    validate_inputs(primate_data: any):
+        Valida se os dados fornecidos são adequados para a criação de um objeto Primate.
+
+    """
+
     @staticmethod
     def create_primate(row: pd.Series, primate_data: pd.DataFrame) -> Primate:     
+        """
+        Cria um objeto Primate a partir de uma linha de dados e um DataFrame.
+
+        Parâmetros
+        ----------
+        row : pd.Series
+            Uma série contendo os dados de um primate específico.
+        primate_data : pd.DataFrame
+            Um DataFrame contendo todos os dados dos primatas.
+
+        Retorna
+        -------
+        Primate
+            Um objeto Primate criado com base nos dados fornecidos.
+
+        Lança
+        ------
+        KeyError
+            Se algum dado obrigatório estiver ausente na estrutura de dados fornecida.
+        TypeError
+            Se algum dado não estiver no formato esperado (tipo incorreto).
+        ValueError
+            Se algum dado não estiver no formato esperado (valor incorreto).
+        """
+
         current_primate: pd.DataFrame = primate_data.query().where("species_name", "==", row["species_name"]).get()
 
         population: dict[str, list[int, float]] = {
@@ -28,19 +66,44 @@ class PrimateFactory:
             "coordinates": (row["latitude"], row["longitude"])
         }
 
-        PrimateFactory.validate_inputs(structured_primate_data)
+        PrimateFactory._validate_inputs(structured_primate_data)
         primate: Primate = Primate(**structured_primate_data)
 
         return primate
 
     @staticmethod
-    def validate_inputs(primate_data: any):
-        required_keys = [
+    def _validate_inputs(primate_data: any):
+        """
+        Cria um objeto Primate a partir de uma linha de dados e um DataFrame.
+
+        Parâmetros
+        ----------
+        row : pd.Series
+            Uma série contendo os dados de um primate específico.
+        primate_data : pd.DataFrame
+            Um DataFrame contendo todos os dados dos primatas.
+
+        Retorna
+        -------
+        Primate
+            Um objeto Primate criado com base nos dados fornecidos.
+
+        Lança
+        ------
+        KeyError
+            Se algum dado obrigatório estiver ausente na estrutura de dados fornecida.
+        TypeError
+            Se algum dado não estiver no formato esperado (tipo incorreto).
+        ValueError
+            Se algum dado não estiver no formato esperado (valor incorreto).
+        """
+
+        required_keys: list[str] = [
             "species_name", "habitat_region", "population", "diet",
             "social_behavior", "genetic_variation", "health_status", "coordinates"
         ]
 
-        missing_keys = [key for key in required_keys if key not in primate_data]
+        missing_keys: list[str] = [key for key in required_keys if key not in primate_data]
         if missing_keys:
             error_message = f"Dados ausentes na estrutura de dados fornecida pra criação de Primate: {', '.join(missing_keys)}"
             Log.error(error_message)

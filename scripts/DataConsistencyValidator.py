@@ -15,6 +15,7 @@ class DataConsistencyValidator:
     -------
     verify_all_data_entries(data: pd.DataFrame)
         Verifica valores nulos nos dados no DataFrame fornecido.
+
     verify_column_consistency(data: 'DAO', columns: Union[str, list[str]]) -> bool
         Verifica a consistência dos valores nas colunas especificadas para cada 
         linha única no DAO.
