@@ -8,12 +8,17 @@ O intuito desse projeto, como parte do Sprint 1 da equipe PrimaType, é, princip
 
 ```plaintext
 .
+├── images # Imagens relevantes pro projeto, gráficos gerados, visualização de dados
+├── models # Modelos de estrutura de dados referentes ao projeto
+│ ├── factories # Criação e validação das estruturas específicas
+│
 ├── reports
 │ ├── report.md # Relatório final do projeto em MarkDown (Existência opcional)
 │ │
 │ └── analysis-primate-population-data.pdf # Relatório final do projeto em PDF (Ainda não projetado)
 │
 ├── scripts # Arquivos opcionais de Python para manipulação e limpeza dos dados
+│ └── components # Super classes
 │
 ├── storage
 │ ├── data
